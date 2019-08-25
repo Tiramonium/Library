@@ -6,21 +6,38 @@ namespace Tiramonium.Library.POCO
     /// <summary>
     /// Modelo de endereços de e-mail
     /// </summary>
-    public class Email
+    public class EnderecoEmail
     {
         /// <summary>
-        /// Endereço de e-mail
+        /// Endereço de e-mail da pessoa
         /// </summary>
-        public string Valor { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
-        /// Método construtor que define o valor do e-mail e valida o formato do valor
+        /// Nome da pessoa
         /// </summary>
-        /// <param name="email">Valor a ser definido para esse e-mail</param>
-        public Email(string email)
+        public string Nome { get; set; }
+
+        /// <summary>
+        /// Método construtor de um novo endereço de e-mail
+        /// </summary>
+        /// <param name="email">Endereço de e-mail da pessoa</param>
+        public EnderecoEmail(string email)
         {
             IsValid(email);
-            this.Valor = email;
+            this.Email = email;
+        }
+
+        /// <summary>
+        /// Método construtor de um novo endereço de e-mail
+        /// </summary>
+        /// <param name="nome">Nome da pessoa</param>
+        /// <param name="email">Endereço de e-mail da pessoa</param>
+        public EnderecoEmail(string email, string nome)
+        {
+            IsValid(email);            
+            this.Email = email;
+            this.Nome = nome;
         }
 
         /// <summary>
@@ -30,7 +47,7 @@ namespace Tiramonium.Library.POCO
         public void IsValid(string email)
         {
             Regex regex = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$", RegexOptions.IgnoreCase);
-            Match match = regex.Match(this.Valor);
+            Match match = regex.Match(email);
 
             if (!match.Success)
             {
@@ -44,7 +61,7 @@ namespace Tiramonium.Library.POCO
         /// <returns>O valor do e-mail em formato de string</returns>
         public override string ToString()
         {
-            return this.Valor;
+            return this.Nome + " - " + this.Email;
         }
     }
 }
